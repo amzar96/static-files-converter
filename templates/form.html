@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jinja2 Static Files Path Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/qtcreator_light.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    p {
+      display: block;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      margin-left: 0;
+      margin-right: 0;
+      font-style: oblique;
+      font-size: 35px;
+    }
+
+    #heading {
+      font-size: 20px;
+      font-style: oblique;
+    }
+
+    #output {
+      font-size: 20px;
+      font-style: oblique;
+      text-align: center;
+    }
+  </style>
+
+
+</head>
+
+<body bgcolor="#E6E6FA">
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Static File Converter</li>
+    </ol>
+  </nav>
+
+  <div class="container">
+    <center><br>
+      <h2 class="form-signin-heading">Jinja2 Static Files Path Converter</h2><br>
+    </center>
+    <div class="row">
+      <div class="col-sm-12">
+          <span id="heading"><b><a href="http://flask.pocoo.org/docs/1.0/tutorial/static/">Flask Static Files</b></a></span>. The authentication views and templates work, but they look very plain right now. Some CSS can be added to add style to the HTML layout you constructed. The style won’t change, so it’s a static file rather than a template.
+          Flask automatically adds a static view that takes a path relative to the flaskr/static directory and serves it. 
+
+          </div>
+    </div>
+
+    <form class="form-signin" role="form">
+      <br>
+      <label class="form-check-label" for="inlineRadio1">Path</label>
+      <input type="text" name="path" id="path" class="form-control" placeholder="icon/logo-white.png" required autofocus> <br>
+      <label class="form-check-label" for="inlineRadio1"><small>*Optional</small> Folder (image, css, js, ...) </label>
+      <input type="text" name="folder" id="folder" class="form-control" placeholder="images" required autofocus> <br>
+  
+
+      <button class="btn btn-lg btn-primary btn-block" type="button">Convert</button>
+
+    </form>
+
+    <br>
+    <div id="masuk">
+
+
+    </div>
+    
+
+  </div>
+
+</body>
+
+<script>
+  $(function () {
+    $('button').click(function () {
+      var path = $('#path').val();
+      var folder = $('#folder').val();
+      $.ajax({
+        url: '/convert',
+        data: $('form').serialize(),
+        type: 'POST',
+        success: function (response) {
+          var response = JSON.parse(response);
+          newpath = response.newpath;
+          $('#output').html(response.newpath);
+          $('#masuk').html('<center><p class="badge badge-primary paragraph" onclick="myFunction()" id="output">'+newpath+'</p></center>');
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+  });
+
+  myFunction = () => {
+    const el = document.createElement('textarea');
+    el.value = document.getElementsByClassName('paragraph')[0].innerHTML;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert('copied!')
+  }
+
+</script>
+
+</html>
