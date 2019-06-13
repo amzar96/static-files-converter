@@ -1,0 +1,30 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: oblique;
+    font-size: 35px;
+}
+
+#heading {
+    font-size: 20px;
+    font-style: oblique;
+}
+
+#output {
+    font-size: 20px;
+    font-style: oblique;
+    text-align: center;
+}
+
+.animate {
+    animation-duration: 3s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}

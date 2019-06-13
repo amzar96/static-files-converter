@@ -15,7 +15,7 @@
   <link href='//fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/qtcreator_light.min.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -23,40 +23,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/notify.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='css/main.css') }}"></script>
 
 
   <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-    }
 
-    p {
-      display: block;
-      margin-top: 1em;
-      margin-bottom: 1em;
-      margin-left: 0;
-      margin-right: 0;
-      font-style: oblique;
-      font-size: 35px;
-    }
-
-    #heading {
-      font-size: 20px;
-      font-style: oblique;
-    }
-
-    #output {
-      font-size: 20px;
-      font-style: oblique;
-      text-align: center;
-    }
   </style>
 
 
 </head>
 
 <body bgcolor="#E6E6FA">
-
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -66,23 +44,28 @@
 
   <div class="container">
     <center><br>
-      <h2 class="form-signin-heading">Jinja2 Static Files Path Converter</h2><br>
+      <h2 class="form-signin-heading animate infinite bounce delay-1s">Jinja2 Static Files Path Converter</h2><br>
+
     </center>
     <div class="row">
       <div class="col-sm-12">
-          <span id="heading"><b><a href="http://flask.pocoo.org/docs/1.0/tutorial/static/">Flask Static Files</b></a></span>. The authentication views and templates work, but they look very plain right now. Some CSS can be added to add style to the HTML layout you constructed. The style won’t change, so it’s a static file rather than a template.
-          Flask automatically adds a static view that takes a path relative to the flaskr/static directory and serves it. 
+        <span id="heading"><b><a href="http://flask.pocoo.org/docs/1.0/tutorial/static/">Flask Static
+              Files</b></a></span>. The authentication views and templates work, but they look very plain right now.
+        Some CSS can be added to add style to the HTML layout you constructed. The style won’t change, so it’s a static
+        file rather than a template.
+        Flask automatically adds a static view that takes a path relative to the flaskr/static directory and serves it.
 
-          </div>
+      </div>
     </div>
 
     <form class="form-signin" role="form">
       <br>
       <label class="form-check-label" for="inlineRadio1">Path</label>
-      <input type="text" name="path" id="path" class="form-control" placeholder="icon/logo-white.png" required autofocus> <br>
+      <input type="text" name="path" id="path" class="form-control" placeholder="icon/logo-white.png" required
+        autofocus> <br>
       <label class="form-check-label" for="inlineRadio1"><small>*Optional</small> Folder (image, css, js, ...) </label>
       <input type="text" name="folder" id="folder" class="form-control" placeholder="images" required autofocus> <br>
-  
+
 
       <button class="btn btn-lg btn-primary btn-block" type="button">Convert</button>
 
@@ -93,7 +76,7 @@
 
 
     </div>
-    
+
 
   </div>
 
@@ -111,8 +94,10 @@
         success: function (response) {
           var response = JSON.parse(response);
           newpath = response.newpath;
-          $('#output').html(response.newpath);
-          $('#masuk').html('<center><p class="badge badge-primary paragraph" onclick="myFunction()" id="output">'+newpath+'</p></center>');
+          //$('#output').html(response.newpath);
+          $('#masuk').html('<center><p class="paragraph"  id="output">' + newpath + '</p></br><button type="button" onclick="myFunction()" class="btn btn-dark noti">Click to Copy</button></center>');
+          //$('#masuk').html('<center><input type="text" readonly class="paragraph" onclick="myFunction()" id="output" value="' + newpath + '"></center>');
+          $.notify("Success Convert Path", "info");
         },
         error: function (error) {
           console.log(error);
@@ -130,7 +115,11 @@
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    alert('copied!')
+    $.notify("Path Copied", "success");
+    //$(".noti").notify(
+    //  "Copied!", "success",
+    //  { position: "right" }
+    //);
   }
 
 </script>
