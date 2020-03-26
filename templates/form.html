@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Jinja2 Static Files Path Converter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}" />
 
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -37,7 +38,7 @@
 <body bgcolor="#E6E6FA">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Static File Converter</li>
     </ol>
   </nav>
@@ -63,7 +64,8 @@
       <label class="form-check-label" for="inlineRadio1">Path</label>
       <input type="text" name="path" id="path" class="form-control" placeholder="icon/logo-white.png" required
         autofocus> <br>
-      <label class="form-check-label" for="inlineRadio1"><small>*Optional</small> Folder (image, css, js, ...) </label>
+      <label class="form-check-label" for="inlineRadio1"><small>*Optional</small><br>Folder (image, css, js, ...)
+      </label>
       <input type="text" name="folder" id="folder" class="form-control" placeholder="images" required autofocus> <br>
 
 
